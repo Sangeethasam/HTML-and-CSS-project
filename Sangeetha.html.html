@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seventh Program</title>
+    <script>
+        var value = 0;
+        var progressLoad;
+
+        //for dynamically increase the value of progress bar
+        var progress = () => {
+            document.getElementById("progress").value = value;
+            value += 15;
+            if (value > 115)
+                stopLoad();
+        }
+
+        //function to call the above function with interval of 100 ms
+        load = () => {
+            document.querySelector("video").hidden = true;
+            document.querySelector("video").srcObject = null
+            document.getElementById("loadBtn").disabled = true;
+            progressLoad = setInterval(progress, 100)
+
+        }
+
+        // fucntion to stop the above funtion
+        stopLoad = () => {
+            clearInterval(progressLoad);
+            value = 0;
+            document.getElementById("loadBtn").disabled = false;
+            document.querySelector("video").hidden = false;
+        }
+    </script>
+    <style>
+        body {
+            margin: 5%;
+        }
+
+        #loadBtn {
+            border: grey;
+            height: 25px;
+            width: 100px;
+            cursor: pointer;
+            margin-top: 25px;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 1em;
+            border-radius: 3px;
+        }
+
+        progress {
+            width: 100%;
+        }
+
+        video {
+            height: 500px;
+            width: auto;
+            position: absolute;
+            left: 25;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <progress id="progress" value="0" max="100"></progress>
+        <button id="loadBtn" onclick="load()">Load</button>
+    </div>
+    <br /><br />
+    <video hidden autoplay src="images/video.mp4" type="video/mp4" controls></video>
+
+</body>
+
+</html>
